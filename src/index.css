@@ -41,7 +41,7 @@ background: linear-gradient(135deg, #153677, #4e085f);
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
+   height: 43px;
 }
 .cont{
     margin-left: 20px;
