@@ -45,12 +45,14 @@ const ToDo = () => {
     );
   }
 
-  function saveToDo(id) {
-    const editedValue = newTask.current.value.trim();
-    if (!editedValue) return; 
+  function saveToDo(id , newTitle) {
+
+    if(newTitle === ""){
+      return
+    }
     setTodos((prev) =>
       prev.map((todo) =>
-        todo.id === id ? { ...todo, title: editedValue, isEditing: false } : todo
+        todo.id === id ? { ...todo, title: newTitle, isEditing: false } : todo
       )
     );
   }
@@ -74,6 +76,7 @@ const ToDo = () => {
     }
   }
 
+
   return (
     <div>
       <div className="container">
@@ -95,12 +98,14 @@ const ToDo = () => {
               <input
                   type="text"
                   defaultValue={todo.title}
-                  ref={newTask}
+                 
                   placeholder="Edit task"
+                  onBlur={(e) => saveToDo(todo.id , e.target.value)}
                   onKeyDown={(e) => saveTaskEnter(e , todo.id)}
                 />
-                <button onClick={() => saveToDo(todo.id)}>Save</button>
+                <button onClick={(e) => saveToDo(todo.id, e.target.value)}>Save</button>
               </div>
+             
               
             
             ) : (
