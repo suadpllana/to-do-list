@@ -72,7 +72,7 @@ const ToDo = () => {
   }
   function saveTaskEnter(e , id){
     if(e.key === "Enter"){
-      saveToDo(id)
+      saveToDo(id , e.target.value)
     }
   }
 
