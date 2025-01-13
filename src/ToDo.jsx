@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { CiTrash } from "react-icons/ci";
 import { FaPen } from "react-icons/fa";
-
+import { FaArrowUp } from "react-icons/fa6";
+import { FaArrowDown } from "react-icons/fa6";
 const ToDo = () => {
   const [todos, setTodos] = useState(() => {
     const savedData = localStorage.getItem("myData");
@@ -75,6 +76,20 @@ const ToDo = () => {
       saveToDo(id , e.target.value)
     }
   }
+  function moveTaskDown(index){
+    if(index < todos.length - 1){
+      const updatedTasks = [...todos];
+      [updatedTasks[index], updatedTasks[index + 1]] = [updatedTasks[index + 1] , updatedTasks[index]];
+setTodos(updatedTasks)
+    }
+  }
+  function moveTaskUp(index){
+    if(index > 0){
+      const updatedTasks = [...todos];
+      [updatedTasks[index], updatedTasks[index - 1]] = [updatedTasks[index - 1] , updatedTasks[index]];
+setTodos(updatedTasks)
+    }
+  }
 
 
   return (
@@ -90,7 +105,7 @@ const ToDo = () => {
         />
         <button onClick={addTask}>Add task</button>
        
-        {todos.map((todo) => (
+        {todos.map((todo ,index) => (
           <div key={todo.id} className="taskContainer">
             {todo.isEditing ? (
               
@@ -117,9 +132,12 @@ const ToDo = () => {
               </p>
             )}
             <div>
+            <FaArrowUp  className="icon" onClick={() => moveTaskUp(index)}/>
+            <FaArrowDown className="icon" onClick={() => moveTaskDown(index)}/>
               <CiTrash className="icon" onClick={() => deleteToDo(todo.id)} />
              
                 <FaPen className="icon" onClick={() => editToDo(todo.id)} />
+                
               
             </div>
           </div>
